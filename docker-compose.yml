@@ -1,0 +1,72 @@
+version: '3'
+services:
+    nginx:
+        build:
+            context: .
+            dockerfile: docker/nginx/Dockerfile
+        volumes:
+            - ${SYMFONY_APP_PATH}:/var/www/symfony/
+        ports:
+            - 8080:80
+        networks:
+            - symfony
+        depends_on:
+            - php
+
+    php:
+        build:
+            context: .
+            dockerfile: docker/php/Dockerfile
+        volumes:
+            - ${SYMFONY_APP_PATH}:/var/www/symfony/
+        networks:
+            - symfony
+        depends_on: 
+            - db
+
+    db:
+        image: mariadb
+        command: --default-authentication-plugin=mysql_native_password
+        ports: 
+            - 3307:3306
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_USER: sfUser
+            MYSQL_PASSWORD: sfPassword
+        volumes: 
+            - ${MY_SQL}:/var/lib/mysql
+        networks:
+            - symfony
+    
+    phpmyadmin:
+        image: phpmyadmin
+        depends_on: 
+            - db
+        ports: 
+            - 8081:80
+        environment:
+            PMA_HOST: db
+        networks:
+            - symfony
+
+    maildev:
+        image: djfarrelly/maildev
+        ports: 
+            - 8082:80
+        networks:
+            - symfony
+
+    mercure:
+        image: dunglas/mercure
+        environment:
+            JWT_KEY: sitraka
+            PUBLISHER_JWT_KEY: mercure_publisher
+            ALLOW_ANONYMOUS: 0
+            CORS_ALLOWED_ORIGINS: 'http://localhost:8080'
+        ports:
+            - 3000:80
+        networks:
+            - symfony
+            
+networks:
+    symfony:
