@@ -17,6 +17,8 @@
 				<li class="{% if page is defined and page == 'index' %}hero-side-active{% endif %}"><a href="{{ path('page.index') }}"><i class="material-icons">home</i></a></li>
 				<li class="{% if page is defined and page == 'about' %}hero-side-active{% endif %}"><a href="{{ path('page.about') }}"><i class="material-icons">info</i></a></li>
 				<li class="{% if page is defined and page == 'contact' %}hero-side-active{% endif %}"><a href="{{ path('page.contact') }}"><i class="material-icons">import_contacts</i></a></li>
+				<li class="{% if page is defined and page == 'login' %}hero-side-active{% endif %}"><a href="{{ path('app_login') }}"><i class="material-icons">account_circle</i></a></li>
+				<li class="{% if page is defined and page == 'register' %}hero-side-active{% endif %}"><a href="{{ path('app_login') }}"><i class="material-icons">person_add</i></a></li>
 			</ul>
 		</div>
 	</div>
@@ -25,7 +27,7 @@
 			<div class="nav-wrapper white navbar">
 				<a href="#!" class="brand-logo"><i class="material-icons">list_alt</i>TodoList</a>
 				<ul class="right hide-on-med-and-down">
-					<li><a href="sass.html"><i class="material-icons">account_circle</i></a></li>
+{#					<li><a href="{{ path('app_login') }}"><i class="material-icons">account_circle</i></a></li>#}
 					<li><a href="mobile.html"><i class="material-icons">notifications</i></a></li>
 				</ul>
 			</div>
