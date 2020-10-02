@@ -1,0 +1,44 @@
+/**
+ * @Author <Akartis>
+ *
+ * Do it with love
+ */
+.navbar{
+  a{
+    color: $dark !important;
+  }
+}
+
+.hero-side{
+  background-color: $dark;
+  padding: 0 !important;
+  height: 100vh !important;
+  color: white !important;
+  &-logo{
+    text-align: center;
+    background-color: darken($dark, 5);
+  }
+  &-active{
+    background-color: lighten($dark, 30);
+  }
+  &-menu{
+    ul{
+      li{
+        @extend .hero-padding-y-2;
+        text-align: center;
+        &:hover{
+          background-color: lighten($dark, 30);
+        }
+        i{
+          font-size: 40px;
+          color: lighten($dark, 80);
+        }
+      }
+    }
+  }
+}
+
+.hero-content{
+  padding: 0 !important;
+}
+

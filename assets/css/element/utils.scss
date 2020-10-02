@@ -1,0 +1,32 @@
+/**
+ * @Author <Akartis>
+ *
+ * Do it with love
+ */
+
+// Generate padding and margin
+@for $i from 0 through 5 {
+  .hero-padding-#{$i}{
+    padding: $padding*$i $padding*$i;
+  }
+
+  .hero-padding-x-#{$i}{
+    padding: 0 $padding*$i;
+  }
+
+  .hero-padding-y-#{$i}{
+    padding: $padding*$i 0;
+  }
+
+  .hero-margin-#{$i}{
+    margin: $padding*$i $padding*$i;
+  }
+
+  .hero-margin-y-#{$i}{
+    margin: $padding*$i 0;
+  }
+
+  .hero-margin-x-#{$i}{
+    margin: 0 $padding*$i;
+  }
+}
