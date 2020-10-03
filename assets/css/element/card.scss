@@ -3,23 +3,45 @@
  *
  * Do it with love
  */
-.hero-todo-card{
+.p-card{
+  margin-bottom: 0;
+  span{
+    font-size: 18px;
+  }
+}
+
+.hero-todo-card {
   background-color: #fff;
   @extend .hero-padding-1, .z-depth-2, .hero-margin-y-2;
   border-radius: $border-radius;
-  .header{
+
+  .header {
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
-    .material-icons{
-      font-size: 35px;
-    }
-    .icon{
+
+    .icon {
       text-align: center;
+
+      span {
+        font-size: 35px;
+
+      }
+    }
+
+    .text {
+      p {
+        @extend .p-card;
+      }
     }
   }
-  .content{
+
+  .content {
   }
-  .footer{
+
+  .footer {
+    p{
+      @extend .p-card;
+    }
   }
 }
