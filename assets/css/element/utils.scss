@@ -29,4 +29,12 @@
   .hero-margin-x-#{$i}{
     margin: 0 $padding*$i;
   }
+
+}
+
+//Generate background color from $theme
+@each $i, $c in $themes{
+  .hero-bg-#{$i}{
+    background-color: $c !important;
+  }
 }
