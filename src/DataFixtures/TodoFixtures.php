@@ -25,6 +25,7 @@ class TodoFixtures extends Fixture
 		for($i = 0; $i < 30; $i++){
 			$toDoList = (new ToDoList())
 				->setContent($faker->sentence(15))
+				->setIsDone($faker->randomElement([true, false]))
 				->setCategorie($faker->randomElement($categorie));
 			$manager->persist($toDoList);
 		}

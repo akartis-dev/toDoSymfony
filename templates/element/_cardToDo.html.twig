@@ -1,0 +1,42 @@
+<div class="col s12 m6 l4">
+	<div class="hero-todo-card">
+		<div class="header row hero-margin-0">
+			<div class="col s3 icon">
+				<span class="material-icons list-icon">list_alt</span>
+			</div>
+			<div class="col s9 text">
+				<h5>{{ data.title }}</h5>
+				<p><span class="material-icons">today</span> {{ data.limitAt | customDate }}</p>
+			</div>
+		</div>
+		<div class="content">
+			<ul class="collection with-header">
+				{% for d in data.toDoLists %}
+					<li class="collection-item item">
+						<div class="hero-todo-bar"></div>
+						<div>
+							<div class="row">
+								<div class="col {% if d.isDone %}s12{% else %}s10{% endif %}">
+									{{ d.content }}
+								</div>
+								{% if not d.isDone %}
+									<div class="col s2">
+										<a href="#!" class="teal-text lighten-2"><i
+													class="material-icons">check_circle</i></a>
+										<a href="#!" class="red-text lighten-2"><i
+													class="material-icons">delete</i></a>
+									</div>
+								{% endif %}
+							</div>
+						</div>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+		<div class="footer">
+			<button class="waves-effect waves-light btn-small hero-bg-dark"><i class="material-icons left">note_add</i>Ajouter
+			</button>
+			<p><span class="material-icons">schedule</span> Creer le: {{ data.createdAt | customDate }}</p>
+		</div>
+	</div>
+</div>

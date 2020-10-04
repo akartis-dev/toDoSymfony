@@ -37,6 +37,19 @@
   }
 
   .content {
+    .item{
+      position: relative;
+      .hero-todo-bar{
+        position: absolute;
+        left: 5px;
+        height: 75%;
+        width: 5px;
+        background-color: $dark;
+        border-radius: $border-radius;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
   }
 
   .footer {
