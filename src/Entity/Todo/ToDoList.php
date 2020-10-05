@@ -6,6 +6,7 @@ use App\Repository\Todo\ToDoListRepository;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\Uuid;
 
 /**
@@ -22,26 +23,31 @@ class ToDoList
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"todo"})
      */
     private string $uuid;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({"todo"})
      */
     private string $content;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"todo"})
      */
     private DateTime $createdAt;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"todo"})
      */
-    private int $position;
+    private ?int $position;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups({"todo"})
      */
     private bool $isDone;
 

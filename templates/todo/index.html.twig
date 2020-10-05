@@ -6,15 +6,12 @@
 			<a class="waves-effect waves-light btn"><i class="material-icons left">queue</i>Ajouter une rubrique</a>
 		</div>
 	</div>
-	<div class="row">
-		{% for c in categorie %}
-			<todo-categorie list="asdasdas"></todo-categorie>
-			{#			{{ include('element/_cardToDo.html.twig', {data: c}) }}#}
-		{% endfor %}
+	<div class="row" id="jsParent">
 	</div>
 
 {% endblock %}
 
 {% block javascripts %}
 	{{ encore_entry_script_tags('customElement') }}
+	{{ encore_entry_script_tags('main') }}
 {% endblock %}
