@@ -29,7 +29,7 @@ class ToDoList
 
     /**
      * @ORM\Column(type="text")
-     * @Groups({"todo"})
+     * @Groups({"todo", "post"})
      */
     private string $content;
 
@@ -41,9 +41,9 @@ class ToDoList
 
     /**
      * @ORM\Column(type="integer", nullable=true)
-     * @Groups({"todo"})
+     * @Groups({"todo", "post"})
      */
-    private ?int $position;
+    private ?int $position = 0;
 
     /**
      * @ORM\Column(type="boolean")

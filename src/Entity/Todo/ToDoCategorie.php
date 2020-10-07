@@ -19,6 +19,7 @@ class ToDoCategorie
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"todo", "categorie"})
      */
     private int $id;
 

@@ -24,7 +24,7 @@ export default class ToDoList {
     generateView({data}) {
         let element = '';
         data.map(e => {
-            element += `<todo-categorie list='${e['uuid']}' title="${e['title']}"></todo-categorie>`;
+            element += `<todo-categorie list='${e['uuid']}' title="${e['title']}" id="${e['id']}"></todo-categorie>`;
         })
         this.parent.innerHTML = element;
     }

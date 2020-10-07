@@ -13,10 +13,13 @@ export default class ToDoCategorie extends HTMLElement {
     constructor() {
         super();
         this.list = this.getAttribute('list');
+        this.id = this.getAttribute('id')
+        this.btnSubmitId = "btn-submit-" + this.id
+        this.textAreaId = "text-area-" + this.id
     }
 
     connectedCallback() {
-        this.getList();
+        this.getList()
     }
 
     async getList() {
@@ -24,7 +27,8 @@ export default class ToDoCategorie extends HTMLElement {
             const res = await axios.get(TODO + this.list)
             this.data = res['data']
             this.generateView()
-            console.log(res['data'])
+            this.postNewToDo()
+            // console.log(res['data'])
         } catch (e) {
             alert(e);
         }
@@ -35,6 +39,7 @@ export default class ToDoCategorie extends HTMLElement {
         this.parent = createElement('div', 'hero-todo-card')
         this.generateHeaderCard()
         this.generateContent()
+        this.generateFooter()
         root.appendChild(this.parent);
         this.appendChild(root);
     }
@@ -55,35 +60,69 @@ export default class ToDoCategorie extends HTMLElement {
 
     generateContent() {
         const root = createElement('div', 'content')
-        const ul = createElement('ul', 'collection with-header')
+        this.ulContainer = createElement('ul', 'collection with-header')
         let list = ''
         this.data['toDoLists'].map(e => {
             list += this.generateOneItem(e)
         })
-        ul.innerHTML = list;
-        root.appendChild(ul)
+        this.ulContainer.innerHTML = list;
+        root.appendChild(this.ulContainer)
         this.parent.appendChild(root)
     }
 
-    generateOneItem(e){
+    generateOneItem(e) {
         return `
             <li class="collection-item item">
                 <div class="hero-todo-bar"></div>
                 <div>
                     <div class="row">
-                        <div class="col ${e['isDone']? 's10' : 's12'}">
+                        <div class="col ${e['isDone'] ? 's12' : 's10'}">
                             ${e['content']}
                         </div>
-                        ${e['isDone'] ? `
+                        ${!e['isDone'] ? `
                         <div class="col s2">
                             <a href="#!" class="teal-text lighten-2"><i class="material-icons">check_circle</i></a>
                             <a href="#!" class="red-text lighten-2"><i class="material-icons">delete</i></a>
                         </div>
-                        `  : ""}
+                        ` : ""}
                     </div>
                 </div>
             </li>
         `
     }
 
+    generateFooter() {
+        const div = createElement('div', 'footer')
+        div.innerHTML = `
+            <div class="input-field">
+                <textarea id="${this.textAreaId}" class="materialize-textarea"></textarea>
+                <label for="${this.textAreaId}">Nouvelle tache</label>
+                  <button class="btn waves-effect waves-light" id="${this.btnSubmitId}">
+                    <i class="material-icons">send</i>
+                  </button>
+            </div>
+            <p><span class="material-icons">schedule</span> Creer le: ${formatDate(this.data['createdAt'])}</p>
+        `
+        this.parent.appendChild(div);
+    }
+
+    postNewToDo() {
+        this.textarea = document.querySelector(`#${this.textAreaId}`);
+        document.querySelector(`#${this.btnSubmitId}`).addEventListener('click', e => {
+            const value = this.textarea.value
+            if (value.length >= 3) {
+                this.sendListToDb(value)
+            }
+        })
+    }
+
+    async sendListToDb(content) {
+        try {
+            const res = await axios.post(TODO, {content, "categorie": this.list})
+            this.ulContainer.innerHTML += (this.generateOneItem(res['data']))
+            this.textarea.value = ''
+        } catch (e) {
+            alert("Une erreur s'est produite")
+        }
+    }
 }
