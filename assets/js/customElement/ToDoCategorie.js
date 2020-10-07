@@ -28,7 +28,6 @@ export default class ToDoCategorie extends HTMLElement {
             this.data = res['data']
             this.generateView()
             this.postNewToDo()
-            // console.log(res['data'])
         } catch (e) {
             alert(e);
         }
@@ -61,34 +60,11 @@ export default class ToDoCategorie extends HTMLElement {
     generateContent() {
         const root = createElement('div', 'content')
         this.ulContainer = createElement('ul', 'collection with-header')
-        let list = ''
         this.data['toDoLists'].map(e => {
-            list += this.generateOneItem(e)
+            this.ulContainer.innerHTML += `<one-item content='${JSON.stringify(e)}'></one-item>`
         })
-        this.ulContainer.innerHTML = list;
         root.appendChild(this.ulContainer)
         this.parent.appendChild(root)
-    }
-
-    generateOneItem(e) {
-        return `
-            <li class="collection-item item">
-                <div class="hero-todo-bar"></div>
-                <div>
-                    <div class="row">
-                        <div class="col ${e['isDone'] ? 's12' : 's10'}">
-                            ${e['content']}
-                        </div>
-                        ${!e['isDone'] ? `
-                        <div class="col s2">
-                            <a href="#!" class="teal-text lighten-2"><i class="material-icons">check_circle</i></a>
-                            <a href="#!" class="red-text lighten-2"><i class="material-icons">delete</i></a>
-                        </div>
-                        ` : ""}
-                    </div>
-                </div>
-            </li>
-        `
     }
 
     generateFooter() {
@@ -119,10 +95,11 @@ export default class ToDoCategorie extends HTMLElement {
     async sendListToDb(content) {
         try {
             const res = await axios.post(TODO, {content, "categorie": this.list})
-            this.ulContainer.innerHTML += (this.generateOneItem(res['data']))
+            this.ulContainer.innerHTML += `<one-item content='${JSON.stringify(res['data'])}'></one-item>`
             this.textarea.value = ''
         } catch (e) {
             alert("Une erreur s'est produite")
         }
     }
+
 }

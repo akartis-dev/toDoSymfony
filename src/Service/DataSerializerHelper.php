@@ -41,11 +41,24 @@ class DataSerializerHelper
 		return $response;
 	}
 
+	/**
+	 * Deserialize data to convert into Entity
+	 * @param $data
+	 * @param string $class
+	 * @param string $group
+	 * @return array|object
+	 */
 	public function deserializeData($data, string $class, string $group)
 	{
 		return $this->serializer->deserialize($data, $class, 'json', ['groups' => $group]);
 	}
 
+	/**
+	 * Deserialize a ToDoList json from Request into Entity and get categorie
+	 * @param $data
+	 * @return ToDoList
+	 * @throws \JsonException
+	 */
 	public function deserializeToDoList($data)
 	{
 		$categorieUuid = json_decode($data, true, 512, JSON_THROW_ON_ERROR)['categorie'];

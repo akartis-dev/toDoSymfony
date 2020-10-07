@@ -4,15 +4,7 @@
  * Do it with love
  */
 import ToDoList from "./class/ToDoList";
+import ToDoUtils from "./class/ToDoUtils";
 
-new ToDoList().getAllCategorie();
-
-// class CategorieList extends HTMLElement {
-//
-//     constructor() {
-//         super();
-//         this.innerHTML = this.getAttribute('soratra');
-//     }
-// }
-//
-// customElements.define('categorie-list', CategorieList);
+const todolist = new ToDoList()
+todolist.getAllCategorie()
