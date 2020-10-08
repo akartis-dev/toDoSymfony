@@ -3,6 +3,8 @@
  *
  * Do it with love
  */
+import axios from 'axios';
+import {TODO} from "../helper/link";
 
 export default class ToDoOneItem extends HTMLElement {
 
@@ -41,21 +43,21 @@ export default class ToDoOneItem extends HTMLElement {
     }
 
     successAction() {
-       const a = document.querySelector(`#${this.successId}`)
-        if(a !== null){
-            a.addEventListener('click',  e => {
-                console.log('success', this.data['uuid'])
-                //todo launch request to success action
+        const a = document.querySelector(`#${this.successId}`)
+        if (a !== null) {
+            a.addEventListener('click', async e => {
+                const res = await axios.put(`${TODO}${this.data['uuid']}`, {'isDone': true})
+                console.log(res);
             })
         }
     }
 
     deleteAction() {
-        const a =document.querySelector(`#${this.deleteId}`)
-        if(a !== null){
-            a.addEventListener('click',  e => {
-                console.log('remove', this.data['uuid'])
-                //todo launch request to success action
+        const a = document.querySelector(`#${this.deleteId}`)
+        if (a !== null) {
+            a.addEventListener('click', async e => {
+                const res = await axios.delete(`${TODO}${this.data['uuid']}`)
+                console.log(res);
             })
         }
     }

@@ -3,6 +3,7 @@
 namespace App\Entity\Todo;
 
 use App\Repository\Todo\ToDoListRepository;
+use App\Traits\GroupsSerializerTrait;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -29,7 +30,7 @@ class ToDoList
 
     /**
      * @ORM\Column(type="text")
-     * @Groups({"todo", "post"})
+     * @Groups({"todo", "post", "todo:put"})
      */
     private string $content;
 
@@ -47,7 +48,7 @@ class ToDoList
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups({"todo"})
+     * @Groups({"todo", "todo:put"})
      */
     private bool $isDone;
 

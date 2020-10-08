@@ -5,13 +5,12 @@
  * Do it with love
  */
 
-namespace App\Controller\TodoList;
+namespace App\Controller\Api;
 
 use App\Entity\Todo\ToDoCategorie;
-use App\Entity\Todo\ToDoList;
 use App\Repository\Todo\ToDoCategorieRepository;
-use App\Repository\Todo\ToDoListRepository;
 use App\Service\DataSerializerHelper;
+use App\Traits\GroupsSerializerTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,17 +23,16 @@ use Symfony\Component\Routing\Annotation\Route;
  * Class ToDoListApiController
  * @package App\Controller\TodoList
  */
-class ToDoListApiController extends AbstractController
+class ApiToDoCategorieController extends AbstractController
 {
+	use GroupsSerializerTrait;
 
-	private ToDoListRepository $listRepository;
 	private DataSerializerHelper $serializer;
 	private ToDoCategorieRepository $toDoCategorieRepository;
 	private EntityManagerInterface $em;
 
-	public function __construct(ToDoListRepository $listRepository, ToDoCategorieRepository $toDoCategorieRepository, DataSerializerHelper $serializer, EntityManagerInterface $em)
+	public function __construct(ToDoCategorieRepository $toDoCategorieRepository, DataSerializerHelper $serializer, EntityManagerInterface $em)
 	{
-		$this->listRepository = $listRepository;
 		$this->serializer = $serializer;
 		$this->toDoCategorieRepository = $toDoCategorieRepository;
 		$this->em = $em;
@@ -47,7 +45,7 @@ class ToDoListApiController extends AbstractController
 	public function collectionCategorieGet(): Response
 	{
 		$res = $this->toDoCategorieRepository->findAll();
-		return $this->serializer->serializeData($res, 'categorie');
+		return $this->serializer->serializeData($res, $this->TO_DO_CATEGORIE_GET);
 	}
 
 	/**
@@ -60,7 +58,7 @@ class ToDoListApiController extends AbstractController
 		$todo = $this->serializer->deserializeToDoList($request->getContent());
 		$this->em->persist($todo);
 		$this->em->flush();
-		return $this->serializer->serializeData($todo, 'todo');
+		return $this->serializer->serializeData($todo, $this->TO_DO_LIST_GET);
 	}
 
 	/**
@@ -71,8 +69,10 @@ class ToDoListApiController extends AbstractController
 	public function itemCategorieGet(?ToDoCategorie $categorie): Response
 	{
 		if ($categorie) {
-			return $this->serializer->serializeData($categorie, 'todo');
+			return $this->serializer->serializeData($categorie, $this->TO_DO_LIST_GET);
 		}
 		throw new NotFoundHttpException('Categorie introuvable');
 	}
+
+
 }
