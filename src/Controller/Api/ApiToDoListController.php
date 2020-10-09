@@ -8,10 +8,10 @@
 namespace App\Controller\Api;
 
 
-use App\Entity\Todo\ToDoCategorie;
 use App\Entity\Todo\ToDoList;
 use App\Service\DataSerializerHelper;
 use App\Traits\GroupsSerializerTrait;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,14 +28,16 @@ class ApiToDoListController extends AbstractController
 	use GroupsSerializerTrait;
 
 	private DataSerializerHelper $serializer;
+	private EntityManagerInterface $em;
 
-	public function __construct(DataSerializerHelper $serializer)
+	public function __construct(DataSerializerHelper $serializer, EntityManagerInterface $em)
 	{
 		$this->serializer = $serializer;
+		$this->em = $em;
 	}
 
 	/**
-	 * @Route("/{uuid}", name="api.todo.item.get", methods={"PUT"})
+	 * @Route("/{uuid}", name="api.todo.item.put", methods={"PUT"})
 	 * @param ToDoList|null $list
 	 * @param Request $request
 	 * @return Response
@@ -43,9 +45,26 @@ class ApiToDoListController extends AbstractController
 	public function itemCategoriePut(?ToDoList $list, Request $request): Response
 	{
 		if (!$list) {
-			throw new NotFoundHttpException('Categorie introuvable');
+			throw new NotFoundHttpException('Items introuvable');
 		}
-		$res = $this->serializer->deserializePut($list, $request->getContent(), $this->TO_DO_LIST_PUT);
-		return $this->serializer->serializeData($res, $this->TO_DO_LIST_GET);
+		sleep(5);
+		return $this->json(['dasdasa']);
+//		$res = $this->serializer->deserializePut($list, $request->getContent(), $this->TO_DO_LIST_PUT);
+//		return $this->serializer->serializeData($res, $this->TO_DO_LIST_GET);
+	}
+
+	/**
+	 * @Route("/{uuid}", name="api.todo.item.delete", methods={"DELETE"})
+	 * @param ToDoList|null $list
+	 * @return Response
+	 */
+	public function itemCategorieDelete(?ToDoList $list): Response
+	{
+		if (!$list) {
+			throw new NotFoundHttpException('Items introuvable');
+		}
+		$this->em->remove($list);
+		$this->em->flush();
+		return (new Response())->setStatusCode(Response::HTTP_NO_CONTENT);
 	}
 }

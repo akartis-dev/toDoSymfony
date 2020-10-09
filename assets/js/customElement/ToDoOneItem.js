@@ -4,7 +4,7 @@
  * Do it with love
  */
 import axios from 'axios';
-import {TODO} from "../helper/link";
+import {TODOSUCCESS} from "../helper/link";
 
 export default class ToDoOneItem extends HTMLElement {
 
@@ -27,7 +27,7 @@ export default class ToDoOneItem extends HTMLElement {
                 <div class="hero-todo-bar"></div>
                 <div>
                     <div class="row">
-                        <div class="col ${e['isDone'] ? 's12' : 's10'}">
+                        <div class="col ${e['isDone'] ? 's12' : 's10'}" id="jsContent">
                             ${e['content']}
                         </div>
                         ${!e['isDone'] ? `
@@ -46,8 +46,12 @@ export default class ToDoOneItem extends HTMLElement {
         const a = document.querySelector(`#${this.successId}`)
         if (a !== null) {
             a.addEventListener('click', async e => {
-                const res = await axios.put(`${TODO}${this.data['uuid']}`, {'isDone': true})
-                console.log(res);
+                try {
+                    await axios.put(`${TODOSUCCESS}/${this.data['uuid']}`, {'isDone': true})
+                    this.removeActionAfter(a)
+                } catch (e) {
+                    alert(e);
+                }
             })
         }
     }
@@ -56,10 +60,21 @@ export default class ToDoOneItem extends HTMLElement {
         const a = document.querySelector(`#${this.deleteId}`)
         if (a !== null) {
             a.addEventListener('click', async e => {
-                const res = await axios.delete(`${TODO}${this.data['uuid']}`)
-                console.log(res);
+                try {
+                    const res = await axios.delete(`${TODOSUCCESS}/${this.data['uuid']}`)
+                    this.parentNode.removeChild(this)
+                } catch (e) {
+                    alert(e);
+                }
             })
         }
+    }
+
+    removeActionAfter(el) {
+        const parent = el.parentNode
+        const root = parent.parentNode
+        root.firstElementChild.classList.replace('s10', 's12')
+        root.removeChild(parent)
     }
 
 }

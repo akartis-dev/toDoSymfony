@@ -62,7 +62,7 @@ class ApiToDoCategorieController extends AbstractController
 	}
 
 	/**
-	 * @Route("/{uuid}", name="api.todo.item.get", methods={"GET"})
+	 * @Route("/{uuid}", name="api.todo.cat.get", methods={"GET"})
 	 * @param ToDoCategorie $categorie
 	 * @return Response
 	 */
