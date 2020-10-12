@@ -3,11 +3,13 @@
 {% block body %}
 	<div class="row hero-margin-t-2">
 		<div class="col s12">
-			<a class="waves-effect waves-light btn"><i class="material-icons left">queue</i>Ajouter une rubrique</a>
+			<button data-target="modal-add" class="btn modal-trigger">Ajouter une rubrique</button>
 		</div>
 	</div>
 	<div class="row" id="jsParent">
 	</div>
+
+	<modal-add-categorie></modal-add-categorie>
 
 {% endblock %}
 

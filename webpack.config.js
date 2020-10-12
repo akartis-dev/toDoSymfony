@@ -24,7 +24,7 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/js/app.js')
-    .addEntry('customElement', './assets/js/customElement/customElement.js')
+    .addEntry('customElement', './assets/js/customElement/customElementRegister.js')
     .addEntry('main', './assets/js/todo/main.js')
     //.addEntry('page2', './assets/js/page2.js')
 
