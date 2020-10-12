@@ -5,3 +5,9 @@
  */
 $dark: rgb(45, 50, 62);
 $padding: .5rem;
+$border-radius: .25rem;
+
+// Theme to build bgc
+$themes: (
+  "dark": $dark
+);

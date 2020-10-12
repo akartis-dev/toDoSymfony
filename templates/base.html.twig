@@ -3,12 +3,13 @@
 <head>
 	<meta charset="UTF-8">
 	<title>{% block title %}To do{% endblock %}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	{{ encore_entry_link_tags('app') }}
 	{% block stylesheets %}{% endblock %}
 </head>
 <body>
 <div class="row" style="margin: 0">
-	<div class="col m1 hero-side">
+	<div class="col s1 hero-side">
 		<div class="hero-side-logo z-depth-3 hero-padding-y-2">
 			<h3 class="hero-margin-0">TD</h3>
 		</div>
@@ -17,15 +18,17 @@
 				<li class="{% if page is defined and page == 'index' %}hero-side-active{% endif %}"><a href="{{ path('page.index') }}"><i class="material-icons">home</i></a></li>
 				<li class="{% if page is defined and page == 'about' %}hero-side-active{% endif %}"><a href="{{ path('page.about') }}"><i class="material-icons">info</i></a></li>
 				<li class="{% if page is defined and page == 'contact' %}hero-side-active{% endif %}"><a href="{{ path('page.contact') }}"><i class="material-icons">import_contacts</i></a></li>
+				<li class="{% if page is defined and page == 'login' %}hero-side-active{% endif %}"><a href="{{ path('app_login') }}"><i class="material-icons">account_circle</i></a></li>
+				<li class="{% if page is defined and page == 'register' %}hero-side-active{% endif %}"><a href="{{ path('app_login') }}"><i class="material-icons">person_add</i></a></li>
 			</ul>
 		</div>
 	</div>
-	<div class="col m11 hero-content">
+	<div class="col s11 hero-content">
 		<nav>
 			<div class="nav-wrapper white navbar">
 				<a href="#!" class="brand-logo"><i class="material-icons">list_alt</i>TodoList</a>
 				<ul class="right hide-on-med-and-down">
-					<li><a href="sass.html"><i class="material-icons">account_circle</i></a></li>
+{#					<li><a href="{{ path('app_login') }}"><i class="material-icons">account_circle</i></a></li>#}
 					<li><a href="mobile.html"><i class="material-icons">notifications</i></a></li>
 				</ul>
 			</div>

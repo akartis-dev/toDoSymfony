@@ -1,0 +1,11 @@
+/**
+ * @Author <Akartis>
+ *
+ * Do it with love
+ */
+#jsParent {
+  .row {
+    @extend .hero-margin-0;
+    @extend .hero-padding-y-1;
+  }
+}

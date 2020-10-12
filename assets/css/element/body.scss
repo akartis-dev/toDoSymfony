@@ -3,6 +3,9 @@
  *
  * Do it with love
  */
-h1{
+body{
+  background-color: #F5F5F5;
+}
+h1, h2, h3, h4, h5, h6{
   @extend .hero-margin-0;
 }

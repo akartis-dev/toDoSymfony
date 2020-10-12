@@ -1,0 +1,19 @@
+{% extends 'base_member.html.twig' %}
+
+{% block body %}
+	<div class="row hero-margin-t-2">
+		<div class="col s12">
+			<button data-target="modal-add" class="btn modal-trigger">Ajouter une rubrique</button>
+		</div>
+	</div>
+	<div class="row" id="jsParent">
+	</div>
+
+	<modal-add-categorie></modal-add-categorie>
+
+{% endblock %}
+
+{% block javascripts %}
+	{{ encore_entry_script_tags('customElement') }}
+	{{ encore_entry_script_tags('main') }}
+{% endblock %}

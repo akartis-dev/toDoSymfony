@@ -18,6 +18,14 @@
     padding: $padding*$i 0;
   }
 
+  .hero-padding-t-#{$i}{
+    padding-top: $padding*$i;
+  }
+
+  .hero-padding-b-#{$i}{
+    padding-bottom: $padding*$i;
+  }
+
   .hero-margin-#{$i}{
     margin: $padding*$i $padding*$i;
   }
@@ -28,5 +36,20 @@
 
   .hero-margin-x-#{$i}{
     margin: 0 $padding*$i;
+  }
+
+  .hero-margin-t-#{$i}{
+    margin-top: $padding*$i;
+  }
+
+  .hero-margin-b-#{$i}{
+    margin-bottom: $padding*$i;
+  }
+}
+
+//Generate background color from $theme
+@each $i, $c in $themes{
+  .hero-bg-#{$i}{
+    background-color: $c !important;
   }
 }
