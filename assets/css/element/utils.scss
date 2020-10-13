@@ -53,3 +53,11 @@
     background-color: $c !important;
   }
 }
+
+//Generate height class
+@for $i from 0 through 5 {
+  .h-#{$i}{
+    height: 25% * $i;
+  }
+}
+

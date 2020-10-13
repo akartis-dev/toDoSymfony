@@ -2,9 +2,41 @@
 
 {% block body %}
 	<div class="center-align">
-		<h1>Bienvenue sur l'application</h1>
-		<h3>
-			Application de todo list pour planifier votre tache journaliere, regroupe par categorie.
-		</h3>
+		<h1>Bienvenue sur l'application Todo</h1>
+		<h3>Commencez! <span class="material-icons">insert_emoticon</span></h3>
+	</div>
+	<div class="center-icon">
+		<div class="icon-style">
+			<div class="icon">
+				<a href="{{ path('app_login') }}">
+					<span class="material-icons">account_circle</span>
+				</a>
+			</div>
+			<div class="text">
+				Se connecter
+			</div>
+		</div>
+
+		<div class="icon-style">
+			<div class="icon">
+				<span class="material-icons">person_add</span>
+			</div>
+			<div class="text">
+				Creer un compte
+			</div>
+		</div>
+
+		<div class="icon-style">
+			<div class="icon">
+				<span class="material-icons">info</span>
+			</div>
+			<div class="text">
+				Information
+			</div>
+		</div>
+	</div>
+	<div class="center-align">
+		<a class="waves-effect waves-light btn-large"><i class="material-icons left">cloud</i>GitHub</a>
+		<a class="waves-effect waves-light btn-large"><i class="material-icons left">facebook</i>Facebook</a>
 	</div>
 {% endblock %}

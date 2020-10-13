@@ -4,10 +4,12 @@
  * Do it with love
  */
 $dark: rgb(45, 50, 62);
+$light-dark: lighten($dark, 30);
 $padding: .5rem;
 $border-radius: .25rem;
 
 // Theme to build bgc
 $themes: (
-  "dark": $dark
+  "dark": $dark,
+  "light-dark": $light-dark
 );

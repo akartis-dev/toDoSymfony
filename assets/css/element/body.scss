@@ -9,3 +9,24 @@ body{
 h1, h2, h3, h4, h5, h6{
   @extend .hero-margin-0;
 }
+
+.center-icon{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  span{
+    color: $light-dark;
+    font-size: 8rem;
+    &:hover{
+      color: $dark !important;
+      cursor: pointer;
+    }
+  }
+  .icon-style{
+    text-align: center;
+    @extend .hoverable;
+    @extend .hero-padding-2;
+    @extend .hero-margin-x-2;
+  }
+}
