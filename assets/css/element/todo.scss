@@ -9,3 +9,8 @@
     @extend .hero-padding-y-1;
   }
 }
+
+#left-col, #right-col{
+  position: sticky;
+  top: 0;
+}

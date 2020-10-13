@@ -58,3 +58,18 @@
     }
   }
 }
+
+.hero-left-card {
+  background-color: #fff;
+  @extend .hero-padding-2, .z-depth-2, .hero-margin-t-2;
+  border-radius: $border-radius;
+  &:hover{
+    background-color: lighten($light-dark, 10);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  p{
+    @extend .hero-margin-0;
+  }
+}

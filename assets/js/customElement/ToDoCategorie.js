@@ -34,7 +34,7 @@ export default class ToDoCategorie extends HTMLElement {
     }
 
     generateView() {
-        const root = createElement('div', 'col s12 m6 l4')
+        const root = createElement('div', 'col s12 m6 l6')
         this.parent = createElement('div', 'hero-todo-card')
         this.generateHeaderCard()
         this.generateContent()
@@ -46,10 +46,7 @@ export default class ToDoCategorie extends HTMLElement {
     generateHeaderCard() {
         const root = createElement('div', 'header row hero-margin-0')
         root.innerHTML = `
-            <div class="col s3 icon">
-                <span class="material-icons list-icon">list_alt</span>
-            </div>
-            <div class="col s9 text">
+            <div class="col s12 text">
                 <h5>${this.data['title']}</h5>
                 <p><span class="material-icons">today</span>${formatDate(this.data['limitAt'])}</p>
             </div>

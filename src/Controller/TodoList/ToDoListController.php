@@ -35,10 +35,8 @@ class ToDoListController extends AbstractController
 	 */
 	public function index(): Response
 	{
-		$rep = $this->em->getRepository(ToDoCategorie::class);
 		return $this->render('todo/index.html.twig', [
 			'page' => 'todo',
-			'categorie' => $rep->findAll()
 		]);
 	}
 
