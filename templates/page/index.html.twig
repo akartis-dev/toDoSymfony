@@ -6,34 +6,9 @@
 		<h3>Commencez! <span class="material-icons">insert_emoticon</span></h3>
 	</div>
 	<div class="center-icon">
-		<div class="icon-style">
-			<div class="icon">
-				<a href="{{ path('app_login') }}">
-					<span class="material-icons">account_circle</span>
-				</a>
-			</div>
-			<div class="text">
-				Se connecter
-			</div>
-		</div>
-
-		<div class="icon-style">
-			<div class="icon">
-				<span class="material-icons">person_add</span>
-			</div>
-			<div class="text">
-				Creer un compte
-			</div>
-		</div>
-
-		<div class="icon-style">
-			<div class="icon">
-				<span class="material-icons">info</span>
-			</div>
-			<div class="text">
-				Information
-			</div>
-		</div>
+		{{ include('element/_iconStyle.html.twig', {icon: 'account_circle', text: 'Se connecter', path: 'app_login'}) }}
+		{{ include('element/_iconStyle.html.twig', {icon: 'person_add', text: 'Creer un compte', path: 'app_login'}) }}
+		{{ include('element/_iconStyle.html.twig', {icon: 'info', text: 'Information', path: 'app_login'}) }}
 	</div>
 	<div class="center-align">
 		<a class="waves-effect waves-light btn-large"><i class="material-icons left">cloud</i>GitHub</a>

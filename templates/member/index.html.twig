@@ -1,5 +1,16 @@
 {% extends 'base_member.html.twig' %}
 
 {% block body %}
-	<h3>Bienvenue {{ app.user.username }}</h3>
+	<div class="container center-align">
+		<h1>Bienvenue {{ app.user.username }}</h1>
+{#		{{ path('todo.index') }}#}
+		<div class="center-icon">
+			{{ include('element/_iconStyle.html.twig', {icon: 'account_circle', text: 'Profil', path: 'member.profile'}) }}
+			{{ include('element/_iconStyle.html.twig', {icon: 'list_alt', text: 'Todo', path: 'todo.index'}) }}
+			{{ include('element/_iconStyle.html.twig', {icon: 'settings_applications', text: 'Parametre', path: 'todo.index'}) }}
+		</div>
+		<div class="center-align">
+			<a class="waves-effect waves-light btn-large" href="{{ path('app_logout') }}"><i class="material-icons left">meeting_room</i>Se deconnecter</a>
+		</div>
+	</div>
 {% endblock %}
