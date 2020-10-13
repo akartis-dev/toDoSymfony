@@ -2,25 +2,25 @@
 
 namespace App\Repository\Todo;
 
-use App\Entity\Todo\ToDoCategorie;
+use App\Entity\Todo\ToDoEntities;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method ToDoCategorie|null find($id, $lockMode = null, $lockVersion = null)
- * @method ToDoCategorie|null findOneBy(array $criteria, array $orderBy = null)
- * @method ToDoCategorie[]    findAll()
- * @method ToDoCategorie[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ToDoEntities|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ToDoEntities|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ToDoEntities[]    findAll()
+ * @method ToDoEntities[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ToDoCategorieRepository extends ServiceEntityRepository
+class ToDoEntitiesRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ToDoCategorie::class);
+        parent::__construct($registry, ToDoEntities::class);
     }
 
     // /**
-    //  * @return ToDoCategorie[] Returns an array of ToDoCategorie objects
+    //  * @return ToDoEntities[] Returns an array of ToDoEntities objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class ToDoCategorieRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?ToDoCategorie
+    public function findOneBySomeField($value): ?ToDoEntities
     {
         return $this->createQueryBuilder('t')
             ->andWhere('t.exampleField = :val')

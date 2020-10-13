@@ -90,6 +90,11 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
+        ],
+        "loadFi": [
+            "bin/console app:truncate-db",
+            "bin/console d:f:l --group=UserFixtures -n",
+            "bin/console d:f:l --group=TodoFixtures -n --append"
         ]
     },
     "conflict": {

@@ -53,6 +53,12 @@ class ToDoCategorie
      */
     private $toDoLists;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=ToDoEntities::class, inversedBy="categorie")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $toDoEntities;
+
     public function __construct()
     {
     	$this->uuid = Uuid::v4();
@@ -140,6 +146,18 @@ class ToDoCategorie
                 $toDoList->setCategorie(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getToDoEntities(): ?ToDoEntities
+    {
+        return $this->toDoEntities;
+    }
+
+    public function setToDoEntities(?ToDoEntities $toDoEntities): self
+    {
+        $this->toDoEntities = $toDoEntities;
 
         return $this;
     }

@@ -2,7 +2,10 @@
 
 namespace App\Entity;
 
+use App\Entity\Todo\ToDoEntities;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Uid\Uuid;
@@ -45,16 +48,22 @@ class User implements UserInterface
      */
     private $createdAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ToDoEntities::class, mappedBy="user")
+     */
+    private $toDoEntities;
+
     public function __construct()
     {
 		$this->uuid = Uuid::v4();
     	$this->createdAt = new \DateTimeImmutable();
+     $this->toDoEntities = new ArrayCollection();
     }
 
 	public function getId(): ?int
-    {
-        return $this->id;
-    }
+                            {
+                                return $this->id;
+                            }
 
     /**
      * A visual identifier that represents this user.
@@ -144,6 +153,37 @@ class User implements UserInterface
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ToDoEntities[]
+     */
+    public function getToDoEntities(): Collection
+    {
+        return $this->toDoEntities;
+    }
+
+    public function addToDoEntity(ToDoEntities $toDoEntity): self
+    {
+        if (!$this->toDoEntities->contains($toDoEntity)) {
+            $this->toDoEntities[] = $toDoEntity;
+            $toDoEntity->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeToDoEntity(ToDoEntities $toDoEntity): self
+    {
+        if ($this->toDoEntities->contains($toDoEntity)) {
+            $this->toDoEntities->removeElement($toDoEntity);
+            // set the owning side to null (unless already changed)
+            if ($toDoEntity->getUser() === $this) {
+                $toDoEntity->setUser(null);
+            }
+        }
 
         return $this;
     }
