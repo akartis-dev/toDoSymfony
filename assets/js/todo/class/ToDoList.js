@@ -35,7 +35,7 @@ export default class ToDoList {
         this.parent.innerHTML = ''
         if(categorie.length > 0){
             categorie.map(e => {
-                element += `<todo-categorie list='${e['uuid']}' title="${e['title']}" id="${e['id']}"></todo-categorie>`;
+                element += `<todo-categorie uuid='${e['uuid']}' title="${e['title']}"></todo-categorie>`;
             })
         }else{
             element = '<no-categorie></no-categorie>'

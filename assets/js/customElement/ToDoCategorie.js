@@ -4,7 +4,7 @@
  * Do it with love
  */
 import axios from 'axios';
-import {TODO} from "../helper/link";
+import {TODO, TODO_LIST} from "../helper/link";
 import {createElement} from "../helper/ElementCreator";
 import {formatDate} from "../helper/DateHelper";
 
@@ -12,10 +12,9 @@ export default class ToDoCategorie extends HTMLElement {
 
     constructor() {
         super();
-        this.list = this.getAttribute('list');
-        this.id = this.getAttribute('id')
-        this.btnSubmitId = "btn-submit-" + this.id
-        this.textAreaId = "text-area-" + this.id
+        this.uuid = this.getAttribute('uuid');
+        this.btnSubmitId = "btn-submit-" + this.uuid
+        this.textAreaId = "text-area-" + this.uuid
     }
 
     connectedCallback() {
@@ -24,10 +23,10 @@ export default class ToDoCategorie extends HTMLElement {
 
     async getList() {
         try {
-            const res = await axios.get(TODO + this.list)
+            const res = await axios.get(TODO + this.uuid)
             this.data = res['data']
             this.generateView()
-            this.postNewToDo()
+            this.postNewToDoList()
         } catch (e) {
             alert(e);
         }
@@ -79,19 +78,19 @@ export default class ToDoCategorie extends HTMLElement {
         this.parent.appendChild(div);
     }
 
-    postNewToDo() {
+    postNewToDoList() {
         this.textarea = document.querySelector(`#${this.textAreaId}`);
         document.querySelector(`#${this.btnSubmitId}`).addEventListener('click', e => {
             const value = this.textarea.value
             if (value.length >= 3) {
-                this.sendListToDb(value)
+                this.sendToDoListInDb(value)
             }
         })
     }
 
-    async sendListToDb(content) {
+    async sendToDoListInDb(content) {
         try {
-            const res = await axios.post(TODO, {content, "categorie": this.list})
+            const res = await axios.post(TODO_LIST, {content, "categorie": this.uuid})
             this.ulContainer.innerHTML += `<one-item content='${JSON.stringify(res['data'])}'></one-item>`
             this.textarea.value = ''
         } catch (e) {

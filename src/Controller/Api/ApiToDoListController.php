@@ -37,7 +37,7 @@ class ApiToDoListController extends AbstractController
 	}
 
 	/**
-	 * Post a new categorie
+	 * Post a new list
 	 * @Route("/", name="api.todo.coll.post", methods={"POST"})
 	 * @param Request $request
 	 * @return Response

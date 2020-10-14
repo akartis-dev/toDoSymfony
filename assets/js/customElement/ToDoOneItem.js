@@ -4,7 +4,7 @@
  * Do it with love
  */
 import axios from 'axios';
-import {TODOSUCCESS} from "../helper/link";
+import {TODO_LIST} from "../helper/link";
 
 export default class ToDoOneItem extends HTMLElement {
 
@@ -47,7 +47,7 @@ export default class ToDoOneItem extends HTMLElement {
         if (a !== null) {
             a.addEventListener('click', async e => {
                 try {
-                    await axios.put(`${TODOSUCCESS}/${this.data['uuid']}`, {'isDone': true})
+                    await axios.put(`${TODO_LIST}${this.data['uuid']}`, {'isDone': true})
                     this.removeActionAfter(a)
                 } catch (e) {
                     alert(e);
@@ -61,7 +61,7 @@ export default class ToDoOneItem extends HTMLElement {
         if (a !== null) {
             a.addEventListener('click', async e => {
                 try {
-                    const res = await axios.delete(`${TODOSUCCESS}/${this.data['uuid']}`)
+                    const res = await axios.delete(`${TODO_LIST}${this.data['uuid']}`)
                     this.parentNode.removeChild(this)
                 } catch (e) {
                     alert(e);
