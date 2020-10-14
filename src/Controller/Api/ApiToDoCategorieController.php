@@ -49,19 +49,7 @@ class ApiToDoCategorieController extends AbstractController
 	}
 
 	/**
-	 * @Route("/", name="api.todo.coll.post", methods={"POST"})
-	 * @param Request $request
-	 * @return Response
-	 */
-	public function collectionToDoListPost(Request $request): Response
-	{
-		$todo = $this->serializer->deserializeToDoList($request->getContent());
-		$this->em->persist($todo);
-		$this->em->flush();
-		return $this->serializer->serializeData($todo, $this->TO_DO_LIST_GET);
-	}
-
-	/**
+	 * Get One categorie
 	 * @Route("/{uuid}", name="api.todo.cat.get", methods={"GET"})
 	 * @param ToDoCategorie $categorie
 	 * @return Response

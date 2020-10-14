@@ -25,7 +25,7 @@ class ToDoCategorie
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"todo", "categorie"})
+     * @Groups({"todo", "categorie", "entitie:get"})
      */
     private string $uuid;
 

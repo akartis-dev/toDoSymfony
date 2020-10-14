@@ -4,7 +4,7 @@
  * Do it with love
  */
 import axios from 'axios';
-import {TODO} from '../../helper/link'
+import {TODO, TODO_ENTITIE} from '../../helper/link'
 
 export default class ToDoList {
 
@@ -12,20 +12,35 @@ export default class ToDoList {
         this.parent = document.querySelector('#jsParent');
     }
 
-    async getAllCategorie() {
+    getClickedEntitie() {
+        const entities = document.querySelectorAll(".hero-left-card")
+        entities.forEach(e => {
+            e.addEventListener('click', () => {
+                this.getAllCategorie(e.dataset.uuid)
+            })
+        })
+    }
+
+    async getAllCategorie(uuid) {
         try {
-            const res = await axios.get(TODO);
-            this.generateView(res);
+            const res = await axios.get(TODO_ENTITIE + uuid);
+            this.generateView(res.data);
         } catch (e) {
             console.log(e);
         }
     }
 
-    generateView({data}) {
+    generateView({categorie}) {
         let element = '';
-        data.map(e => {
-            element += `<todo-categorie list='${e['uuid']}' title="${e['title']}" id="${e['id']}"></todo-categorie>`;
-        })
+        this.parent.innerHTML = ''
+        if(categorie.length > 0){
+            categorie.map(e => {
+                element += `<todo-categorie list='${e['uuid']}' title="${e['title']}" id="${e['id']}"></todo-categorie>`;
+            })
+        }else{
+            element = '<no-categorie></no-categorie>'
+        }
+
         this.parent.innerHTML = element;
     }
 

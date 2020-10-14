@@ -6,5 +6,5 @@
 import ToDoList from "./class/ToDoList";
 import CreateNewCategorie from "./class/CreateNewCategorie";
 const todolist = new ToDoList()
-todolist.getAllCategorie()
+todolist.getClickedEntitie()
 new CreateNewCategorie()
