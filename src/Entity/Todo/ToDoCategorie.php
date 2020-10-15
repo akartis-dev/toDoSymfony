@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 use Symfony\Component\Uid\Uuid;
 
 /**
@@ -31,7 +32,7 @@ class ToDoCategorie
 
     /**
      * @ORM\Column(type="text")
-     * @Groups({"todo", "categorie"})
+     * @Groups({"todo", "categorie", "post:categorie"})
      */
     private string $title;
 
@@ -43,7 +44,7 @@ class ToDoCategorie
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups({"todo", "categorie"})
+     * @Groups({"todo", "categorie", "post:categorie"})
      */
     private DateTime $limitAt;
 
@@ -58,6 +59,12 @@ class ToDoCategorie
      * @ORM\JoinColumn(nullable=false)
      */
     private $toDoEntities;
+
+	/**
+	 * @SerializedName("entitie")
+	 * @Groups({"post:categorie"})
+	 */
+    private string $toDoEntitieUuid;
 
     public function __construct()
     {
@@ -161,4 +168,22 @@ class ToDoCategorie
 
         return $this;
     }
+
+	/**
+	 * @return string
+	 */
+	public function getToDoEntitieUuid(): string
+	{
+		return $this->toDoEntitieUuid;
+	}
+
+	/**
+	 * @param string $toDoEntitieUuid
+	 */
+	public function setToDoEntitieUuid(string $toDoEntitieUuid): void
+	{
+		$this->toDoEntitieUuid = $toDoEntitieUuid;
+	}
+
+
 }

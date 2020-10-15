@@ -9,10 +9,12 @@ namespace App\Service;
 
 
 use App\Entity\Todo\ToDoCategorie;
+use App\Entity\Todo\ToDoEntities;
 use App\Entity\Todo\ToDoList;
 use App\Traits\GroupsSerializerTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -90,6 +92,20 @@ class DataSerializerHelper
 		$this->serializer->deserialize($data, get_class($list), 'json', ['groups' => $group, AbstractNormalizer::OBJECT_TO_POPULATE => $list]);
 		$this->em->flush();
 		return $list;
+	}
+
+	public function deserializeToDoCategorie($data)
+	{
+		/** @var ToDoCategorie $categorie */
+		$categorie =$this->deserializeData($data, ToDoCategorie::class, $this->TO_DO_CATEGORIE_POST);
+		$entitie = $this->em->getRepository(ToDoEntities::class)->findOneBy(['uuid' => $categorie->getToDoEntitieUuid()]);
+
+		if(!$entitie){
+			throw new BadRequestHttpException("entite introuvable");
+		}
+
+		$categorie->setToDoEntities($entitie);
+		return $categorie;
 	}
 
 }

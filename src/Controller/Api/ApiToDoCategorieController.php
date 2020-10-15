@@ -28,13 +28,11 @@ class ApiToDoCategorieController extends AbstractController
 	use GroupsSerializerTrait;
 
 	private DataSerializerHelper $serializer;
-	private ToDoCategorieRepository $toDoCategorieRepository;
 	private EntityManagerInterface $em;
 
-	public function __construct(ToDoCategorieRepository $toDoCategorieRepository, DataSerializerHelper $serializer, EntityManagerInterface $em)
+	public function __construct(DataSerializerHelper $serializer, EntityManagerInterface $em)
 	{
 		$this->serializer = $serializer;
-		$this->toDoCategorieRepository = $toDoCategorieRepository;
 		$this->em = $em;
 	}
 
@@ -44,8 +42,21 @@ class ApiToDoCategorieController extends AbstractController
 	 */
 	public function collectionCategorieGet(): Response
 	{
-		$res = $this->toDoCategorieRepository->findAll();
+		$res = $this->em->getRepository(ToDoCategorie::class)->findAll();
 		return $this->serializer->serializeData($res, $this->TO_DO_CATEGORIE_GET);
+	}
+
+	/**
+	 * @Route("/", name="api.todo.cat.post", methods={"POST"})
+	 * @param Request $request
+	 * @return Response
+	 */
+	public function collectionCategoriePost(Request $request): Response
+	{
+		$todo = $this->serializer->deserializeToDoCategorie($request->getContent());
+		$this->em->persist($todo);
+		$this->em->flush();
+		return $this->serializer->serializeData($todo, $this->TO_DO_CATEGORIE_GET);
 	}
 
 	/**
