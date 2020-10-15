@@ -5,7 +5,7 @@
  */
 import axios from 'axios';
 import {ENTITIE, TODO_ENTITIE} from '../../helper/link'
-
+import LoadingHelper from "../../helper/LoadingHelper";
 export default class ToDoList {
 
     constructor() {
@@ -24,11 +24,15 @@ export default class ToDoList {
 
     async getAllCategorie(uuid) {
         try {
+            LoadingHelper.showLoading()
             const res = await axios.get(TODO_ENTITIE + uuid);
             localStorage.setItem(ENTITIE, uuid)
             this.generateView(res.data);
         } catch (e) {
             console.log(e);
+        }
+        finally {
+            LoadingHelper.hideLoading()
         }
     }
 
