@@ -8,7 +8,6 @@
 namespace App\Controller\Api;
 
 use App\Entity\Todo\ToDoCategorie;
-use App\Repository\Todo\ToDoCategorieRepository;
 use App\Service\DataSerializerHelper;
 use App\Traits\GroupsSerializerTrait;
 use Doctrine\ORM\EntityManagerInterface;
@@ -71,6 +70,24 @@ class ApiToDoCategorieController extends AbstractController
 			return $this->serializer->serializeData($categorie, $this->TO_DO_LIST_GET);
 		}
 		throw new NotFoundHttpException('Categorie introuvable');
+	}
+
+	/**
+	 * Remove one categorie
+	 * @Route("/{uuid}", name="api.todo.cat.delete", methods={"DELETE"})
+	 * @param ToDoCategorie|null $categorie
+	 * @return Response
+	 */
+	public function itemCategorieDelete(?ToDoCategorie $categorie): Response
+	{
+		if(!$categorie){
+			throw new NotFoundHttpException('Categorie introuvable');
+		}
+		$this->em->remove($categorie);
+		$this->em->flush();
+		$response = new Response();
+		$response->setStatusCode(Response::HTTP_NO_CONTENT);
+		return $response;
 	}
 
 

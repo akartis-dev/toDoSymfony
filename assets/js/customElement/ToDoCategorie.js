@@ -7,6 +7,7 @@ import axios from 'axios';
 import {TODO, TODO_LIST} from "../helper/link";
 import {createElement} from "../helper/ElementCreator";
 import {formatDate} from "../helper/DateHelper";
+import LoadingHelper from "../helper/LoadingHelper";
 
 export default class ToDoCategorie extends HTMLElement {
 
@@ -16,6 +17,7 @@ export default class ToDoCategorie extends HTMLElement {
         this.btnSubmitId = "btn-submit-" + this.uuid
         this.btnRemoveId = "btn-remove-" + this.uuid
         this.textAreaId = "text-area-" + this.uuid
+        this.message = ''
     }
 
     connectedCallback() {
@@ -95,18 +97,41 @@ export default class ToDoCategorie extends HTMLElement {
 
     async sendToDoListInDb(content) {
         try {
+            LoadingHelper.showLoading()
             const res = await axios.post(TODO_LIST, {content, "categorie": this.uuid})
             this.ulContainer.innerHTML += `<one-item content='${JSON.stringify(res['data'])}'></one-item>`
             this.textarea.value = ''
+            this.message = "Ajout avec succes."
         } catch (e) {
-            alert("Une erreur s'est produite")
+            console.log(e)
+            this.message = "Une erreur s'est produite."
+        }finally {
+            M.toast({html: this.message, classes: 'rounded'});
+            LoadingHelper.hideLoading()
         }
     }
 
 
     removeThisToDoCategorie() {
         document.querySelector(`#${this.btnRemoveId}`).addEventListener('click', () => {
-            this.parentElement.removeChild(this)
+            if(confirm("Etes vous sur? Action irreversible")){
+                this.removeCategorieInDb()
+            }
         })
+    }
+
+    async removeCategorieInDb() {
+        try{
+            LoadingHelper.showLoading()
+            await axios.delete(TODO + this.uuid)
+            this.parentElement.removeChild(this)
+            this.message = 'Suppression avec succes'
+        }catch (e) {
+            console.log(e)
+            this.message = 'Une erreur s\'est produite'
+        }finally {
+            M.toast({html: this.message, classes: 'rounded'});
+            LoadingHelper.hideLoading()
+        }
     }
 }

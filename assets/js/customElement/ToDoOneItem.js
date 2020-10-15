@@ -5,6 +5,7 @@
  */
 import axios from 'axios';
 import {TODO_LIST} from "../helper/link";
+import LoadingHelper from "../helper/LoadingHelper";
 
 export default class ToDoOneItem extends HTMLElement {
 
@@ -13,6 +14,7 @@ export default class ToDoOneItem extends HTMLElement {
         this.data = JSON.parse(this.getAttribute('content'))
         this.successId = `success-${this.data['uuid']}`
         this.deleteId = `delete-${this.data['uuid']}`
+        this.message = ''
     }
 
     connectedCallback() {
@@ -47,10 +49,16 @@ export default class ToDoOneItem extends HTMLElement {
         if (a !== null) {
             a.addEventListener('click', async e => {
                 try {
+                    LoadingHelper.showLoading()
                     await axios.put(`${TODO_LIST}${this.data['uuid']}`, {'isDone': true})
                     this.removeActionAfter(a)
+                    this.message = "Validation avec succes :)"
                 } catch (e) {
-                    alert(e);
+                    console.log(e);
+                    this.message = "Une erreur s'est produite!"
+                }finally {
+                    M.toast({html: this.message, classes: 'rounded'});
+                    LoadingHelper.hideLoading()
                 }
             })
         }
@@ -61,10 +69,16 @@ export default class ToDoOneItem extends HTMLElement {
         if (a !== null) {
             a.addEventListener('click', async e => {
                 try {
-                    const res = await axios.delete(`${TODO_LIST}${this.data['uuid']}`)
+                    LoadingHelper.showLoading()
+                    await axios.delete(`${TODO_LIST}${this.data['uuid']}`)
                     this.parentNode.removeChild(this)
+                    this.message = "Suppression avec succes :)"
                 } catch (e) {
-                    alert(e);
+                    console.log(e);
+                    this.message = "Une erreur s'est produite!"
+                }finally {
+                    M.toast({html: this.message, classes: 'rounded'});
+                    LoadingHelper.hideLoading()
                 }
             })
         }
