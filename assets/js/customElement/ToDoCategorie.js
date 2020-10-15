@@ -14,6 +14,7 @@ export default class ToDoCategorie extends HTMLElement {
         super();
         this.uuid = this.getAttribute('uuid');
         this.btnSubmitId = "btn-submit-" + this.uuid
+        this.btnRemoveId = "btn-remove-" + this.uuid
         this.textAreaId = "text-area-" + this.uuid
     }
 
@@ -27,6 +28,7 @@ export default class ToDoCategorie extends HTMLElement {
             this.data = res['data']
             this.generateView()
             this.postNewToDoList()
+            this.removeThisToDoCategorie()
         } catch (e) {
             alert(e);
         }
@@ -72,6 +74,9 @@ export default class ToDoCategorie extends HTMLElement {
                   <button class="btn waves-effect waves-light" id="${this.btnSubmitId}">
                     <i class="material-icons">send</i>
                   </button>
+                   <button class="btn waves-effect waves-light red lighten-3" id="${this.btnRemoveId}">
+                    <i class="material-icons">delete_forever</i>
+                  </button>
             </div>
             <p><span class="material-icons">schedule</span> Creer le: ${formatDate(this.data['createdAt'])}</p>
         `
@@ -98,4 +103,10 @@ export default class ToDoCategorie extends HTMLElement {
         }
     }
 
+
+    removeThisToDoCategorie() {
+        document.querySelector(`#${this.btnRemoveId}`).addEventListener('click', () => {
+            this.parentElement.removeChild(this)
+        })
+    }
 }

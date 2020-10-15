@@ -5,7 +5,7 @@
  */
 export default class LoadingHelper {
     static showLoading() {
-        globalLoading.removeAttribute('style')
+        globalLoading.style.display = 'block'
     }
 
     static hideLoading() {
