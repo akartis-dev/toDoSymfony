@@ -4,6 +4,9 @@
  * Do it with love
  */
 import datepicker from "js-datepicker/src/datepicker";
+import axios from 'axios'
+import {ENTITIE, TODO} from "../helper/link";
+import ToDoCategorie from "./ToDoCategorie";
 
 export default class ToDoAddCategorieModal extends HTMLElement {
 
@@ -12,13 +15,17 @@ export default class ToDoAddCategorieModal extends HTMLElement {
         this.generateHtml()
         this.handleModal()
         this.date = ''
-        this.parent = document.querySelector('#jsParent');
+        this.parent = document.querySelector('#jsParent')
+        this.progressBar = document.querySelector('#addProgress')
     }
 
     generateHtml() {
         this.innerHTML = `
         <div id="modal-add" class="modal">
             <div class="modal-content">
+             <div class="progress" id="addProgress" style="display: none">
+                <div class="indeterminate"></div>
+             </div>
               <h4>Ajout de categorie</h4>
               <p>Formulaire permettant d'ajouter un categorie avec une date limite</p>
               <div class="row">
@@ -45,12 +52,8 @@ export default class ToDoAddCategorieModal extends HTMLElement {
             const init = M.Modal.init(el)
             const instance = el[0].M_Modal
 
-            document.querySelector('#close-modal').addEventListener('click', async () => {
-                const {title, date} = this.getModalValue()
-                const {data} = await axios.post(TODO, {title, limitAt: date, entitie: localStorage.getItem(ENTITIE)})
-                this.removeNoCategorieNode()
-                this.parent.innerHTML += `<todo-categorie uuid='${data['uuid']}' title="${data['title']}"></todo-categorie>`;
-                instance.close()
+            document.querySelector('#close-modal').addEventListener('click', () => {
+                this.postData(instance)
             })
 
             datepicker('#datePick', {
@@ -61,16 +64,49 @@ export default class ToDoAddCategorieModal extends HTMLElement {
         })
     }
 
+    async postData(modal) {
+        const {title, date} = this.getModalValue()
+        let html = ''
+        try {
+            this.progressBar.removeAttribute('style')
+            const {data} = await axios.post(TODO, {title, limitAt: date, entitie: localStorage.getItem(ENTITIE)})
+            this.removeNoCategorieNode()
+            this.resetInputValue()
+            this.parent.appendChild(this.createNewToDo(data))
+            html = 'Creation avec succes'
+            modal.close()
+        }catch (e) {
+            console.log(e)
+            html = 'Une erreur s\'est produite!'
+        }finally {
+            M.toast({html, classes: 'rounded'});
+            this.progressBar.style.display = 'none'
+        }
+    }
+
+    createNewToDo(data){
+        const todo = new ToDoCategorie()
+        todo.uuid = data['uuid']
+        todo.title = data['title']
+        return todo
+    }
+
     removeNoCategorieNode() {
         const categorie = document.querySelector('no-categorie');
-        this.parent.firstChild === categorie ? this.parent.removeChild(categorie) : null
+        if(this.parent.childElementCount >= 1 && this.parent.firstChild === categorie){
+             this.parent.removeChild(categorie)
+        }
     }
 
     getModalValue() {
         const title = document.querySelector('#title-categorie').value
         const date = this.date
-        // console.log(moment(date))
         return {title, date}
     }
 
+    resetInputValue() {
+        document.querySelector('#title-categorie').value = null
+        document.querySelector('#datePick').value = null
+        this.date = null
+    }
 }
