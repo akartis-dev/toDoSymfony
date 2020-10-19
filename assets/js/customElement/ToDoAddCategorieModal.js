@@ -84,10 +84,9 @@ export default class ToDoAddCategorieModal extends HTMLElement {
         }
     }
 
-    createNewToDo(data){
+    createNewToDo({uuid}){
         const todo = new ToDoCategorie()
-        todo.uuid = data['uuid']
-        todo.title = data['title']
+        todo.setAttribute('uuid', uuid)
         return todo
     }
 

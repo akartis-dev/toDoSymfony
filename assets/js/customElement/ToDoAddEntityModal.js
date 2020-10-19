@@ -49,7 +49,7 @@ export default class ToDoAddEntityModal extends HTMLElement {
             const instance = el[1].M_Modal
 
             document.querySelector('#closeEntity').addEventListener('click', () => {
-                instance.close()
+                this.postData(instance);
             })
         })
     }
@@ -58,15 +58,16 @@ export default class ToDoAddEntityModal extends HTMLElement {
      * Post new Data in db
      * @returns {Promise<void>}
      */
-    async postData() {
+    async postData(instance) {
         this.input = document.querySelector('#entite')
         const title = this.input.value
         try {
             this.load.style.display = 'block'
             const res = await axios.post(TODO_ENTITIE, {title})
-            this.generateEntitie(res)
+            this.generateEntitie(res.data)
+            instance.close()
         } catch (e) {
-
+            console.log(e)
         } finally {
             this.load.style.display = 'none'
         }
@@ -79,8 +80,8 @@ export default class ToDoAddEntityModal extends HTMLElement {
      */
     generateEntitie({uuid, title}) {
         const entitie = new ToDoEntitie();
-        entitie.uuid = uuid;
-        entitie.title = title;
-        this.parent.appendChild(entitie);
+        entitie.setAttribute('uuid', uuid)
+        entitie.setAttribute('title', title)
+        this.parent.prepend(entitie);
     }
 }

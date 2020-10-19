@@ -16,11 +16,15 @@ export default class ToDoEntitie extends HTMLElement {
 
     constructor() {
         super();
+        this.parent = document.querySelector('#jsParent')
+    }
+
+    connectedCallback(){
         this.uuid = this.getAttribute('uuid')
         this.title = this.getAttribute('title')
-        this.parent = document.querySelector('#jsParent')
         this.generateHTML()
         this.addClick()
+        console.log(this.uuid, this.title)
     }
 
     /**
