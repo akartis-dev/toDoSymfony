@@ -5,6 +5,7 @@
  */
 import axios from 'axios'
 import {TODO_ENTITIE} from "../helper/link";
+import ToDoEntitie from "./ToDoEntitie";
 
 export default class ToDoAddEntityModal extends HTMLElement {
 
@@ -12,9 +13,13 @@ export default class ToDoAddEntityModal extends HTMLElement {
         super();
         this.generateModal()
         this.handleModal()
-        this.parent = document.querySelector("#left-col")
+        this.parent = document.querySelector("#left-col-item")
+        this.load = document.querySelector("#entitie-load")
     }
 
+    /**
+     * Generate modal html
+     */
     generateModal() {
         this.innerHTML = `
         <div id="modal-entity" class="modal">
@@ -25,6 +30,9 @@ export default class ToDoAddEntityModal extends HTMLElement {
                   <label for="first_name">Titre</label>
               </div>
             </div>
+             <div class="progress" style="display: none" id="entitie-load">
+                <div class="indeterminate"></div>
+             no </div>
             <div class="modal-footer">
               <a href="#!" id="closeEntity" class="waves-effect waves-green btn-flat">Ajouter</a>
             </div>
@@ -32,6 +40,9 @@ export default class ToDoAddEntityModal extends HTMLElement {
         `
     }
 
+    /**
+     * Handle modal close to post data
+     */
     handleModal() {
         document.addEventListener('DOMContentLoaded', () => {
             const el = document.querySelectorAll(".modal")
@@ -43,15 +54,33 @@ export default class ToDoAddEntityModal extends HTMLElement {
         })
     }
 
+    /**
+     * Post new Data in db
+     * @returns {Promise<void>}
+     */
     async postData() {
         this.input = document.querySelector('#entite')
         const title = this.input.value
         try {
-            await axios.post(TODO_ENTITIE, {title})
+            this.load.style.display = 'block'
+            const res = await axios.post(TODO_ENTITIE, {title})
+            this.generateEntitie(res)
         } catch (e) {
 
         } finally {
-
+            this.load.style.display = 'none'
         }
+    }
+
+    /**
+     * Generate a new Entitie and append in parent node
+     * @param uuid
+     * @param title
+     */
+    generateEntitie({uuid, title}) {
+        const entitie = new ToDoEntitie();
+        entitie.uuid = uuid;
+        entitie.title = title;
+        this.parent.appendChild(entitie);
     }
 }

@@ -10,7 +10,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\Uuid;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=ToDoEntitiesRepository::class)
  */
@@ -25,11 +25,14 @@ class ToDoEntities
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"entitie:get"})
      */
     private string $uuid;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"entitie:post", "entitie:get"})
+     * @Assert\NotNull()
      */
     private string $title;
 

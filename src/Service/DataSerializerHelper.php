@@ -94,6 +94,11 @@ class DataSerializerHelper
 		return $list;
 	}
 
+	/**
+	 * Deserialize to do categorie and assign entitie in object
+	 * @param $data
+	 * @return ToDoCategorie
+	 */
 	public function deserializeToDoCategorie($data)
 	{
 		/** @var ToDoCategorie $categorie */
