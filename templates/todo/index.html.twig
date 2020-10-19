@@ -3,7 +3,7 @@
 {% block body %}
 	<div class="row hero-margin-t-2">
 		<div class="col s12">
-			<button data-target="modal-add" class="btn modal-trigger">Ajouter une categorie</button>
+			<a data-target="modal-add" class="waves-effect waves-light btn modal-trigger"><i class="material-icons left">add</i>Ajouter une categorie</a>
 		</div>
 	</div>
 	<div class="row">
@@ -14,6 +14,9 @@
 					<p>{{ d.title }}</p>
 				</div>
 			{% endfor %}
+			<div class="hero-margin-t-1 center-align">
+				<a data-target="modal-entity" class="waves-effect waves-light btn modal-trigger"><i class="material-icons left">add</i>Ajouter</a>
+			</div>
 		</div>
 		<div class="col s7" id="jsParent">
 			<h3>Selectionner une rubrique</h3>
@@ -24,6 +27,7 @@
 	</div>
 
 	<modal-add-categorie></modal-add-categorie>
+	<modal-add-entity></modal-add-entity>
 
 {% endblock %}
 
