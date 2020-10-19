@@ -27,6 +27,6 @@ services:
         resource: '../src/Controller/'
         tags: ['controller.service_arguments']
 
-    App\EventListener\RequestJsonTransformListener:
+    App\EventListener\ValidateEntitiesListener:
         tags:
-            - { name: kernel.event_listener, event: kernel.request }
+            - {name: 'doctrine.event_listener', event: 'prePersist'}

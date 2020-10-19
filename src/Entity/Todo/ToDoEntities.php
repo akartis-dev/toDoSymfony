@@ -32,7 +32,7 @@ class ToDoEntities
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"entitie:post", "entitie:get"})
-     * @Assert\NotNull()
+     * @Assert\NotBlank()
      */
     private string $title;
 
