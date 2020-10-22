@@ -4,8 +4,8 @@
  * Do it with love
  */
 import axios from 'axios';
-import {TODO_LIST} from "../helper/link";
-import LoadingHelper from "../helper/LoadingHelper";
+import {TODO_LIST} from "../../helper/link";
+import LoadingHelper from "../../helper/LoadingHelper";
 
 export default class ToDoOneItem extends HTMLElement {
 

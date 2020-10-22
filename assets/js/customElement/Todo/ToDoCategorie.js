@@ -4,10 +4,10 @@
  * Do it with love
  */
 import axios from 'axios';
-import {TODO, TODO_LIST} from "../helper/link";
-import {createElement} from "../helper/ElementCreator";
-import {formatDate} from "../helper/DateHelper";
-import LoadingHelper from "../helper/LoadingHelper";
+import {TODO, TODO_LIST} from "../../helper/link";
+import {createElement} from "../../helper/ElementCreator";
+import {formatDate} from "../../helper/DateHelper";
+import LoadingHelper from "../../helper/LoadingHelper";
 
 export default class ToDoCategorie extends HTMLElement {
 

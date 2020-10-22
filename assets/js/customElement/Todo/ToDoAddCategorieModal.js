@@ -5,7 +5,7 @@
  */
 import datepicker from "js-datepicker/src/datepicker";
 import axios from 'axios'
-import {ENTITIE, TODO} from "../helper/link";
+import {ENTITIE, TODO} from "../../helper/link";
 import ToDoCategorie from "./ToDoCategorie";
 
 export default class ToDoAddCategorieModal extends HTMLElement {

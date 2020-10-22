@@ -4,7 +4,7 @@
  * Do it with love
  */
 import axios from 'axios'
-import {TODO_ENTITIE} from "../helper/link";
+import {TODO_ENTITIE} from "../../helper/link";
 import ToDoEntitie from "./ToDoEntitie";
 
 export default class ToDoAddEntityModal extends HTMLElement {

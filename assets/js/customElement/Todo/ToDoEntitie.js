@@ -3,9 +3,9 @@
  *
  * Do it with love
  */
-import LoadingHelper from "../helper/LoadingHelper";
+import LoadingHelper from "../../helper/LoadingHelper";
 import axios from "axios";
-import {ENTITIE, LAST_ENTITIE, TODO_ENTITIE} from "../helper/link";
+import {ENTITIE, LAST_ENTITIE, TODO_ENTITIE} from "../../helper/link";
 
 /**
  *
