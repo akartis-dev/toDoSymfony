@@ -5,7 +5,7 @@
  */
 import LoadingHelper from "../helper/LoadingHelper";
 import axios from "axios";
-import {ENTITIE, TODO_ENTITIE} from "../helper/link";
+import {ENTITIE, LAST_ENTITIE, TODO_ENTITIE} from "../helper/link";
 
 /**
  *
@@ -19,12 +19,11 @@ export default class ToDoEntitie extends HTMLElement {
         this.parent = document.querySelector('#jsParent')
     }
 
-    connectedCallback(){
+    connectedCallback() {
         this.uuid = this.getAttribute('uuid')
         this.title = this.getAttribute('title')
         this.generateHTML()
         this.addClick()
-        console.log(this.uuid, this.title)
     }
 
     /**
@@ -42,7 +41,7 @@ export default class ToDoEntitie extends HTMLElement {
     /**
      * Add click event into object
      */
-    addClick(){
+    addClick() {
         this.addEventListener('click', () => {
             this.getAllCategorie()
         })
@@ -54,11 +53,13 @@ export default class ToDoEntitie extends HTMLElement {
      */
     async getAllCategorie() {
         try {
-            localStorage.removeItem(ENTITIE)
             LoadingHelper.showLoading()
+            localStorage.setItem(LAST_ENTITIE, localStorage.getItem(ENTITIE))
             const res = await axios.get(TODO_ENTITIE + this.uuid);
             localStorage.setItem(ENTITIE, this.uuid)
             this.generateView(res.data);
+            this.setActiveElement()
+
         } catch (e) {
             console.log(e);
         } finally {
@@ -81,5 +82,17 @@ export default class ToDoEntitie extends HTMLElement {
             element = '<no-categorie></no-categorie>'
         }
         this.parent.innerHTML = element;
+    }
+
+    /**
+     * Add a active class if element is active
+     */
+    setActiveElement() {
+        const last = localStorage.getItem(LAST_ENTITIE);
+        const lastElement = this.parentElement.querySelector(`todo-entitie[uuid="${last}"]`)
+        if (null !== lastElement) {
+            lastElement.firstElementChild.classList.remove('hero-left-card-active')
+        }
+        this.firstElementChild.classList.add('hero-left-card-active')
     }
 }
