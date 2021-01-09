@@ -3,8 +3,7 @@
  *
  * Do it with love
  */
-import ToDoList from "./class/ToDoList";
-import CreateNewCategorie from "./class/CreateNewCategorie";
-const todolist = new ToDoList()
-todolist.getClickedEntitie()
-// new CreateNewCategorie()
+import {ENTITIE, LAST_ENTITIE} from "../helper/link";
+
+localStorage.removeItem(ENTITIE)
+localStorage.removeItem(LAST_ENTITIE)

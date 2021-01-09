@@ -3,27 +3,32 @@
 {% block body %}
 	<div class="row hero-margin-t-2">
 		<div class="col s12">
-			<button data-target="modal-add" class="btn modal-trigger">Ajouter une categorie</button>
+			<a data-target="modal-add" class="waves-effect waves-light btn modal-trigger"><i
+						class="material-icons left">add</i>Ajouter une categorie</a>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col s2" id="left-col">
-			{% for d in data %}
-				<div class="hero-left-card flex-center" data-uuid="{{ d.uuid }}">
-					<span class="material-icons">keyboard_arrow_right</span>
-					<p>{{ d.title }}</p>
-				</div>
-			{% endfor %}
+			<div id="left-col-item">
+				{% for d in data %}
+					<todo-entitie uuid="{{ d.uuid }}" title="{{ d.title }}"></todo-entitie>
+				{% endfor %}
+			</div>
+			<div class="hero-margin-t-1 center-align">
+				<a data-target="modal-entity" class="waves-effect waves-light btn modal-trigger"><i
+							class="material-icons left">add</i>Ajouter</a>
+			</div>
 		</div>
 		<div class="col s7" id="jsParent">
 			<h3>Selectionner une rubrique</h3>
 		</div>
 		<div class="col s3" id="right-col">
-			adasdasds
+			<todo-detail></todo-detail>
 		</div>
 	</div>
 
 	<modal-add-categorie></modal-add-categorie>
+	<modal-add-entity></modal-add-entity>
 
 {% endblock %}
 

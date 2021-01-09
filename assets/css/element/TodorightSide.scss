@@ -1,0 +1,25 @@
+/**
+ * @Author <Akartis>
+ *
+ * Do it with love
+ */
+#right-col{
+  .material-icons{
+    display: inline-block;
+    vertical-align: text-top;
+  }
+
+  span.badge{
+    padding: 4px 10px;
+    float: none;
+    font-weight: bold;
+  }
+
+  span.badge.new:after{
+    content: '';
+  }
+
+  .item{
+    @extend .hero-margin-b-1;
+  }
+}

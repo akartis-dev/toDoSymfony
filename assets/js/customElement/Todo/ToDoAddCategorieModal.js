@@ -5,7 +5,7 @@
  */
 import datepicker from "js-datepicker/src/datepicker";
 import axios from 'axios'
-import {ENTITIE, TODO} from "../helper/link";
+import {ENTITIE, TODO} from "../../helper/link";
 import ToDoCategorie from "./ToDoCategorie";
 
 export default class ToDoAddCategorieModal extends HTMLElement {
@@ -84,10 +84,9 @@ export default class ToDoAddCategorieModal extends HTMLElement {
         }
     }
 
-    createNewToDo(data){
+    createNewToDo({uuid}){
         const todo = new ToDoCategorie()
-        todo.uuid = data['uuid']
-        todo.title = data['title']
+        todo.setAttribute('uuid', uuid)
         return todo
     }
 
